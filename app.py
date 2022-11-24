@@ -26,5 +26,7 @@ def inference(model_inputs:dict) -> dict:
     # Run the model
     result = model(prompt)
 
+    print(result)
+
     # Return the results as a dictionary
-    return dict((x, y) for x, y in result)
+    return result
