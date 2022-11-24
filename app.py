@@ -1,5 +1,8 @@
 from diffusers import StableDiffusionPipeline
 import torch
+import base64
+from io import BytesIO
+
 
 model_id = "Linaqruf/anything-v3.0"
 
@@ -26,7 +29,10 @@ def inference(model_inputs:dict) -> dict:
     # Run the model
     result = model(prompt)
 
-    print(result)
+    output_buffer = BytesIO()
+    result.save(output_buffer, format='JPEG')
+    byte_data = output_buffer.getvalue()
+    base64_str = base64.b64encode(byte_data)
 
     # Return the results as a dictionary
-    return result
+    return base64_str
